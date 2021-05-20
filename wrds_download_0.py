@@ -54,8 +54,7 @@ crsp_linktable = db.raw_sql('''
 crsp_msf = db.raw_sql('''
                       
                       SELECT permno, permco, date, ret
-                      FROM crsp.msf
-                      WHERE date > '1988-01-01'; 
+                      FROM crsp.msf; 
                       
                       ''')
 
