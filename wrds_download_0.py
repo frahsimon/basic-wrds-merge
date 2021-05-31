@@ -7,7 +7,7 @@ Created on Thu Apr 29 11:53:57 2021
 
 # BASIC MERGE SCRIPT
 # NOTES: This script downloads and merges annual data in a very basic manner.
-#        It annualizes crsp returns. It
+#        It annualizes crsp returns.
 
 ###################################
 ### STEP 0: PACKAGES // PRE #######
