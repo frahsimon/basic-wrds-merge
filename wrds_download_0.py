@@ -7,7 +7,7 @@ Created on Thu Apr 29 11:53:57 2021
 
 # BASIC MERGE SCRIPT
 # NOTES: This script downloads and merges annual data in a very basic manner.
-#        It annualizes crsp returns.
+#        It annualizes crsp returns. 
 
 ###################################
 ### STEP 0: PACKAGES // PRE #######
@@ -30,7 +30,7 @@ c = sql.cursor()
 # compustat
 comp_funda = db.raw_sql('''
                         
-                        SELECT gvkey, datadate, fyear, ib
+                        SELECT gvkey, datadate, fyear, ib, sale
                         FROM comp.funda
                         WHERE (indfmt='INDL')
                         AND (datafmt='STD')
@@ -54,7 +54,8 @@ crsp_linktable = db.raw_sql('''
 crsp_msf = db.raw_sql('''
                       
                       SELECT permno, permco, date, ret
-                      FROM crsp.msf; 
+                      FROM crsp.msf
+                      WHERE date > '1988-01-01'; 
                       
                       ''')
 
@@ -161,7 +162,7 @@ temp_df_sql = c.execute('''
                         FROM temp_df_sql AS a
                         LEFT JOIN crsp_msf_sql AS b
                         ON a.permno = b.permno
-                        AND a.permno = b.permno
+                        AND a.permco = b.permco
                         WHERE b.date BETWEEN a.datadate_start AND a.datadate
                         
                         ''')
@@ -207,4 +208,3 @@ temp_df = temp_df.groupby(['permno','fyear']).tail(1)
 temp_df['cum_return_fyear'] = temp_df['cum_return_plus1_fyear'] -1 
 
 df = temp_df
-
