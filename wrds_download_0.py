@@ -107,7 +107,7 @@ temp_df_sql = c.execute('''
                         LEFT JOIN crsp_linktable AS b
                         ON a.gvkey = b.gvkey
                         WHERE b.linktype = 'LU' OR 'LC'
-                        AND a.datadate BETWEEN b.linkdt AND COALESCE(b.linkenddt, datetime('now')
+                        AND a.datadate BETWEEN b.linkdt AND COALESCE(b.linkenddt, datetime('now'))
                         
                         ''')
 
